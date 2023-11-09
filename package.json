@@ -1,40 +1,29 @@
 {
 	"name": "vscode-markdown-notebook",
+	"publisher": "ms-vscode",
 	"displayName": "Markdown Notebook",
-	"version": "0.0.1",
-	"private": "false",
 	"description": "An extension for editing markdown files in VS Code notebooks",
+	"version": "0.0.26",
+	"preview": true,
+	"engines": {
+		"vscode": "^1.57.0"
+	},
+	"repository": {
+		"url": "https://github.com/microsoft/vscode-markdown-notebook"
+	},
 	"categories": [
 		"Other"
 	],
-	"homepage": "https://github.com/CodeEditorLand/CodeEditorLand#readme",
-	"bugs": {
-		"url": "https://github.com/CodeEditorLand/CodeEditorLand/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/CodeEditorLand/CodeEditorLand.git"
-	},
-	"license": "MIT",
-	"author": {
-		"name": "Nikola Hristov",
-		"email": "nikola@nikolahristov.tech",
-		"url": "https://nikolahristov.tech"
-	},
-	"publisher": "playform",
-	"type": "module",
+	"activationEvents": [
+		"onNotebook:markdown-notebook"
+	],
 	"main": "./out/extension.js",
 	"browser": "./out/extension-bundle.js",
-	"scripts": {
-		"bundle": "npx esbuild src/extension.ts --bundle --outfile=out/extension-bundle.js --platform=node --external:vscode",
-		"compile": "tsc -p ./",
-		"deploy": "npx vsce publish --noVerify",
-		"lint": "eslint src --ext ts",
-		"prepublishOnly": "TypeScriptESBuild 'Source/**/*.ts'",
-		"pretest": "yarn run compile && yarn run lint",
-		"test": "node ./out/test/runTest.js",
-		"vscode:prepublish": "yarn run compile && yarn run bundle",
-		"watch": "tsc -watch -p ./"
+	"capabilities": {
+		"virtualWorkspaces": true,
+		"untrustedWorkspaces": {
+			"supported": true
+		}
 	},
 	"contributes": {
 		"notebooks": [
@@ -50,35 +39,28 @@
 			}
 		]
 	},
-	"activationEvents": [
-		"onNotebook:markdown-notebook"
-	],
+	"scripts": {
+		"vscode:prepublish": "yarn run compile && yarn run bundle",
+		"compile": "tsc -p ./",
+		"lint": "eslint src --ext ts",
+		"deploy": "npx vsce publish --noVerify",
+		"watch": "tsc -watch -p ./",
+		"pretest": "yarn run compile && yarn run lint",
+		"test": "node ./out/test/runTest.js",
+		"bundle": "npx esbuild src/extension.ts --bundle --outfile=out/extension-bundle.js --platform=node --external:vscode"
+	},
 	"devDependencies": {
-		"@types/glob": "8.1.0",
-		"@types/mocha": "10.0.3",
-		"@types/node": "20.8.9",
-		"@types/vscode": "1.83",
-		"@typescript-eslint/eslint-plugin": "6.9.0",
-		"@typescript-eslint/parser": "6.9.0",
-		"esbuild": "0.19.5",
-		"eslint": "8.52.0",
-		"glob": "10.3.10",
-		"mocha": "10.2.0",
-		"typescript": "5.2.2",
-		"typescript-esbuild": "0.3.1",
-		"vscode-test": "1.3.0"
-	},
-	"engines": {
-		"vscode": "1.57.0"
-	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"preview": true,
-	"capabilities": {
-		"virtualWorkspaces": true,
-		"untrustedWorkspaces": {
-			"supported": true
-		}
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^7.0.2",
+		"@types/node": "^13.11.0",
+		"@types/vscode": "1.57",
+		"@typescript-eslint/eslint-plugin": "^2.30.0",
+		"@typescript-eslint/parser": "^2.30.0",
+		"esbuild": "^0.12.23",
+		"eslint": "^6.8.0",
+		"glob": "^7.1.6",
+		"mocha": "^7.1.2",
+		"typescript": "^3.8.3",
+		"vscode-test": "^1.3.0"
 	}
 }
