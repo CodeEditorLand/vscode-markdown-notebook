@@ -1,77 +1,77 @@
 {
-  "name": "vscode-markdown-notebook",
-  "displayName": "Markdown Notebook",
-  "version": "0.0.1",
-  "private": "false",
-  "description": "An extension for editing markdown files in VS Code notebooks",
-  "homepage": "https://github.com/CodeEditorLand/CodeEditorLand#readme",
-  "bugs": {
-    "url": "https://github.com/CodeEditorLand/CodeEditorLand/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/CodeEditorLand/CodeEditorLand.git"
-  },
-  "license": "MIT",
-  "author": {
-    "name": "Nikola Hristov",
-    "email": "nikola@nikolahristov.tech",
-    "url": "https://nikolahristov.tech"
-  },
-  "publisher": "playform",
-  "type": "module",
-  "main": "./out/extension.js",
-  "browser": "./out/extension-bundle.js",
-  "scripts": {
-    "bundle": "npx esbuild src/extension.ts --bundle --outfile=out/extension-bundle.js --platform=node --external:vscode",
-    "compile": "tsc -p ./",
-    "deploy": "npx vsce publish --noVerify",
-    "lint": "eslint src --ext ts",
-    "prepublishOnly": "TypeScriptESBuild 'Source/**/*.ts'",
-    "pretest": "yarn run compile && yarn run lint",
-    "test": "node ./out/test/runTest.js",
-    "vscode:prepublish": "yarn run compile && yarn run bundle",
-    "watch": "tsc -watch -p ./"
-  },
-  "contributes": {
-    "notebooks": [
-      {
-        "type": "markdown-notebook",
-        "displayName": "Markdown Notebook",
-        "priority": "option",
-        "selector": [
-          {
-            "filenamePattern": "*.{md,markdown}"
-          }
-        ]
-      }
-    ]
-  },
-  "activationEvents": [
-    "onNotebook:markdown-notebook"
-  ],
-  "devDependencies": {
-    "@types/glob": "8.1.0",
-    "@types/mocha": "10.0.6",
-    "@types/node": "20.10.0",
-    "@types/vscode": "1.84",
-    "@typescript-eslint/eslint-plugin": "6.12.0",
-    "@typescript-eslint/parser": "6.12.0",
-    "esbuild": "0.19.8",
-    "glob": "10.3.10",
-    "mocha": "10.2.0",
-    "typescript": "5.3.2",
-    "typescript-esbuild": "0.3.1",
-    "vscode-test": "1.3.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "preview": true,
-  "capabilities": {
-    "virtualWorkspaces": true,
-    "untrustedWorkspaces": {
-      "supported": true
-    }
-  }
+	"name": "vscode-markdown-notebook",
+	"displayName": "Markdown Notebook",
+	"version": "0.0.1",
+	"private": "false",
+	"description": "An extension for editing markdown files in VS Code notebooks",
+	"homepage": "https://github.com/CodeEditorLand/CodeEditorLand#readme",
+	"bugs": {
+		"url": "https://github.com/CodeEditorLand/CodeEditorLand/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/CodeEditorLand/CodeEditorLand.git"
+	},
+	"license": "MIT",
+	"author": {
+		"name": "Nikola Hristov",
+		"email": "nikola@nikolahristov.tech",
+		"url": "https://nikolahristov.tech"
+	},
+	"publisher": "playform",
+	"type": "module",
+	"main": "./out/extension.js",
+	"browser": "./out/extension-bundle.js",
+	"scripts": {
+		"bundle": "npx esbuild src/extension.ts --bundle --outfile=out/extension-bundle.js --platform=node --external:vscode",
+		"compile": "tsc -p ./",
+		"deploy": "npx vsce publish --noVerify",
+		"lint": "eslint src --ext ts",
+		"prepublishOnly": "TypeScriptESBuild 'Source/**/*.ts'",
+		"pretest": "yarn run compile && yarn run lint",
+		"test": "node ./out/test/runTest.js",
+		"vscode:prepublish": "yarn run compile && yarn run bundle",
+		"watch": "tsc -watch -p ./"
+	},
+	"contributes": {
+		"notebooks": [
+			{
+				"type": "markdown-notebook",
+				"displayName": "Markdown Notebook",
+				"priority": "option",
+				"selector": [
+					{
+						"filenamePattern": "*.{md,markdown}"
+					}
+				]
+			}
+		]
+	},
+	"activationEvents": [
+		"onNotebook:markdown-notebook"
+	],
+	"devDependencies": {
+		"@types/glob": "8.1.0",
+		"@types/mocha": "10.0.6",
+		"@types/node": "20.10.0",
+		"@types/vscode": "1.84",
+		"@typescript-eslint/eslint-plugin": "6.12.0",
+		"@typescript-eslint/parser": "6.12.0",
+		"esbuild": "0.19.8",
+		"glob": "10.3.10",
+		"mocha": "10.2.0",
+		"typescript": "5.3.2",
+		"typescript-esbuild": "0.3.1",
+		"vscode-test": "1.3.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"preview": true,
+	"capabilities": {
+		"virtualWorkspaces": true,
+		"untrustedWorkspaces": {
+			"supported": true
+		}
+	}
 }
