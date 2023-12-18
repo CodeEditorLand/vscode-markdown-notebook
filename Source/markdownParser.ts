@@ -25,7 +25,7 @@ const LANG_IDS = new Map([
 	["py3", "python"],
 ]);
 const LANG_ABBREVS = new Map(
-	Array.from(LANG_IDS.keys()).map((k) => [LANG_IDS.get(k), k])
+	Array.from(LANG_IDS.keys()).map((k) => [LANG_IDS.get(k), k]),
 );
 
 interface ICodeBlockStart {
@@ -57,11 +57,11 @@ function isCodeBlockEndLine(line: string): boolean {
 
 export function parseMarkdown(content: string): RawNotebookCell[] {
 	const lines = content.split(/\r?\n/g);
-	let cells: RawNotebookCell[] = [];
+	const cells: RawNotebookCell[] = [];
 	let i = 0;
 
 	// Each parse function starts with line i, leaves i on the line after the last line parsed
-	for (; i < lines.length; ) {
+	while (i < lines.length) {
 		const leadingWhitespace = i === 0 ? parseWhitespaceLines(true) : "";
 		if (i >= lines.length) {
 			break;
@@ -75,7 +75,7 @@ export function parseMarkdown(content: string): RawNotebookCell[] {
 	}
 
 	function parseWhitespaceLines(isFirst: boolean): string {
-		let start = i;
+		const start = i;
 		const nextNonWhitespaceLineOffset = lines
 			.slice(start)
 			.findIndex((l) => l !== "");
@@ -95,7 +95,7 @@ export function parseMarkdown(content: string): RawNotebookCell[] {
 
 	function parseCodeBlock(
 		leadingWhitespace: string,
-		codeBlockStart: ICodeBlockStart
+		codeBlockStart: ICodeBlockStart,
 	): void {
 		const language =
 			LANG_IDS.get(codeBlockStart.langId) || codeBlockStart.langId;
@@ -115,7 +115,7 @@ export function parseMarkdown(content: string): RawNotebookCell[] {
 		const content = lines
 			.slice(startSourceIdx, i - 1)
 			.map((line) =>
-				line.replace(new RegExp("^" + codeBlockStart.indentation), "")
+				line.replace(new RegExp("^" + codeBlockStart.indentation), ""),
 			)
 			.join("\n");
 		const trailingWhitespace = parseWhitespaceLines(false);
@@ -159,7 +159,7 @@ export function parseMarkdown(content: string): RawNotebookCell[] {
 }
 
 export function writeCellsToMarkdown(
-	cells: ReadonlyArray<vscode.NotebookCellData>
+	cells: ReadonlyArray<vscode.NotebookCellData>,
 ): string {
 	let result = "";
 	for (let i = 0; i < cells.length; i++) {
@@ -191,7 +191,7 @@ export function writeCellsToMarkdown(
 
 function getBetweenCellsWhitespace(
 	cells: ReadonlyArray<vscode.NotebookCellData>,
-	idx: number
+	idx: number,
 ): string {
 	const thisCell = cells[idx];
 	const nextCell = cells[idx + 1];

@@ -5,9 +5,9 @@
 
 import * as vscode from "vscode";
 import {
+	RawNotebookCell,
 	parseMarkdown,
 	writeCellsToMarkdown,
-	RawNotebookCell,
 } from "./markdownParser";
 
 const providerOptions = {
@@ -24,8 +24,8 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.workspace.registerNotebookSerializer(
 			"markdown-notebook",
 			new MarkdownProvider(),
-			providerOptions
-		)
+			providerOptions,
+		),
 	);
 }
 
@@ -43,7 +43,7 @@ class MarkdownProvider implements vscode.NotebookSerializer {
 
 	deserializeNotebook(
 		data: Uint8Array,
-		_token: vscode.CancellationToken
+		_token: vscode.CancellationToken,
 	): vscode.NotebookData | Thenable<vscode.NotebookData> {
 		const content = this.decoder.decode(data);
 
@@ -57,7 +57,7 @@ class MarkdownProvider implements vscode.NotebookSerializer {
 
 	serializeNotebook(
 		data: vscode.NotebookData,
-		_token: vscode.CancellationToken
+		_token: vscode.CancellationToken,
 	): Uint8Array | Thenable<Uint8Array> {
 		const stringOutput = writeCellsToMarkdown(data.cells);
 		return this.encoder.encode(stringOutput);
@@ -65,7 +65,7 @@ class MarkdownProvider implements vscode.NotebookSerializer {
 }
 
 export function rawToNotebookCellData(
-	data: RawNotebookCell
+	data: RawNotebookCell,
 ): vscode.NotebookCellData {
 	return <vscode.NotebookCellData>{
 		kind: data.kind,
