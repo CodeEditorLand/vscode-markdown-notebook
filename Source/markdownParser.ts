@@ -38,7 +38,7 @@ interface ICodeBlockStart {
  * between the start and end blocks, etc. This is good enough for typical use cases.
  */
 function parseCodeBlockStart(line: string): ICodeBlockStart | null {
-	const match = line.match(/(    |\t)?```(\S*)/);
+	const match = line.match(/( {4}|\t)?```(\S*)/);
 	return (
 		match && {
 			indentation: match[1],
@@ -115,7 +115,7 @@ export function parseMarkdown(content: string): RawNotebookCell[] {
 		const content = lines
 			.slice(startSourceIdx, i - 1)
 			.map((line) =>
-				line.replace(new RegExp("^" + codeBlockStart.indentation), ""),
+				line.replace(new RegExp(`^${codeBlockStart.indentation}`), ""),
 			)
 			.join("\n");
 		const trailingWhitespace = parseWhitespaceLines(false);
@@ -159,7 +159,7 @@ export function parseMarkdown(content: string): RawNotebookCell[] {
 }
 
 export function writeCellsToMarkdown(
-	cells: ReadonlyArray<vscode.NotebookCellData>,
+	cells: readonly vscode.NotebookCellData[],
 ): string {
 	let result = "";
 	for (let i = 0; i < cells.length; i++) {
@@ -172,12 +172,12 @@ export function writeCellsToMarkdown(
 			const indentation = cell.metadata?.indentation || "";
 			const languageAbbrev =
 				LANG_ABBREVS.get(cell.languageId) ?? cell.languageId;
-			const codePrefix = indentation + "```" + languageAbbrev + "\n";
+			const codePrefix = `${indentation}\`\`\`${languageAbbrev}\n`;
 			const contents = cell.value
 				.split(/\r?\n/g)
 				.map((line) => indentation + line)
 				.join("\n");
-			const codeSuffix = "\n" + indentation + "```";
+			const codeSuffix = `\n${indentation}\`\`\``;
 
 			result += codePrefix + contents + codeSuffix;
 		} else {
@@ -190,7 +190,7 @@ export function writeCellsToMarkdown(
 }
 
 function getBetweenCellsWhitespace(
-	cells: ReadonlyArray<vscode.NotebookCellData>,
+	cells: readonly vscode.NotebookCellData[],
 	idx: number,
 ): string {
 	const thisCell = cells[idx];
