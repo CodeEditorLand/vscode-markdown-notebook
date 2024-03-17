@@ -1,13 +1,20 @@
 {
-  "activationEvents": [
-    "onNotebook:markdown-notebook"
-  ],
+  "name": "vscode-markdown-notebook",
+  "displayName": "Markdown Notebook",
+  "version": "0.0.26",
+  "description": "An extension for editing markdown files in VS Code notebooks",
+  "repository": {
+    "url": "https://github.com/microsoft/vscode-markdown-notebook"
+  },
+  "publisher": "ms-vscode",
+  "main": "./out/extension.js",
   "browser": "./out/extension-bundle.js",
-  "capabilities": {
-    "untrustedWorkspaces": {
-      "supported": true
-    },
-    "virtualWorkspaces": true
+  "scripts": {
+    "bundle": "npx esbuild src/extension.ts --bundle --outfile=out/extension-bundle.js --platform=node --external:vscode",
+    "compile": "tsc -p ./",
+    "deploy": "npx vsce publish --noVerify",
+    "vscode:prepublish": "yarn run compile && yarn run bundle",
+    "watch": "tsc -watch -p ./"
   },
   "contributes": {
     "notebooks": [
@@ -23,7 +30,9 @@
       }
     ]
   },
-  "description": "An extension for editing markdown files in VS Code notebooks",
+  "activationEvents": [
+    "onNotebook:markdown-notebook"
+  ],
   "devDependencies": {
     "@types/glob": "7.1.1",
     "@types/mocha": "7.0.2",
@@ -35,20 +44,11 @@
     "typescript": "3.8.3",
     "vscode-test": "1.3.0"
   },
-  "displayName": "Markdown Notebook",
-  "main": "./out/extension.js",
-  "name": "vscode-markdown-notebook",
   "preview": true,
-  "publisher": "ms-vscode",
-  "repository": {
-    "url": "https://github.com/microsoft/vscode-markdown-notebook"
-  },
-  "scripts": {
-    "bundle": "npx esbuild src/extension.ts --bundle --outfile=out/extension-bundle.js --platform=node --external:vscode",
-    "compile": "tsc -p ./",
-    "deploy": "npx vsce publish --noVerify",
-    "vscode:prepublish": "yarn run compile && yarn run bundle",
-    "watch": "tsc -watch -p ./"
-  },
-  "version": "0.0.26"
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  }
 }
