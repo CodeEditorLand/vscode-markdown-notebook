@@ -4,30 +4,32 @@
 	"version": "0.0.1",
 	"private": false,
 	"description": "An extension for editing markdown files in VS Code notebooks",
-	"homepage": "https://github.com/CodeEditorLand/Foundation#readme",
+	"keywords": [
+		"land"
+	],
+	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/LandMarkdownNotebook#readme",
 	"bugs": {
-		"url": "https://github.com/CodeEditorLand/Foundation/issues"
+		"url": "HTTPS://GitHub.Com/CodeEditorLand/LandMarkdownNotebook/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/CodeEditorLand/Foundation.git"
+		"url": "git+HTTPS://github.com/CodeEditorLand/LandMarkdownNotebook.git"
 	},
 	"license": "SEE LICENSE IN LICENSE",
 	"author": {
-		"name": "Playform",
-		"email": "Hello@Playform.Cloud",
-		"url": "https://playform.cloud"
+		"name": "🌆 — Land —",
+		"email": "Land@PlayForm.Cloud",
+		"url": "HTTPS://Land.PlayForm.Cloud"
 	},
 	"type": "module",
 	"main": "./out/extension.js",
 	"browser": "./out/extension-bundle.js",
 	"scripts": {
+		"Document": "Document 'Source/**/*.ts'",
 		"bundle": "npx esbuild src/extension.ts --bundle --outfile=out/extension-bundle.js --platform=node --external:vscode",
 		"compile": "tsc -p ./",
 		"deploy": "npx vsce publish --noVerify",
-		"prepublishOnly": "TypeScriptESBuild 'Source/**/*.ts'",
-		"vscode:prepublish": "yarn run compile && yarn run bundle",
-		"watch": "tsc -watch -p ./"
+		"prepublishOnly": "Build 'Source/**/*.ts'"
 	},
 	"contributes": {
 		"notebooks": [
@@ -47,16 +49,12 @@
 		"onNotebook:markdown-notebook"
 	],
 	"devDependencies": {
+		"@playform/build": "0.0.7",
+		"@playform/document": "0.0.6",
 		"@types/glob": "8.1.0",
-		"@types/mocha": "10.0.6",
-		"@types/node": "20.11.30",
-		"@types/vscode": "1.87",
+		"@types/node": "20.12.7",
 		"esbuild": "0.20.2",
-		"glob": "10.3.10",
-		"mocha": "10.3.0",
-		"typescript": "5.4.2",
-		"typescript-esbuild": "0.4.5",
-		"vscode-test": "1.3.0"
+		"glob": "10.3.12"
 	},
 	"publishConfig": {
 		"access": "public"
