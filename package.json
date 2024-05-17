@@ -1,27 +1,7 @@
 {
 	"name": "vscode-markdown-notebook",
 	"displayName": "Markdown Notebook",
-	"version": "0.0.1",
-	"private": false,
 	"description": "An extension for editing markdown files in VS Code notebooks",
-	"keywords": [
-		"land"
-	],
-	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/LandMarkdownNotebook#readme",
-	"bugs": {
-		"url": "HTTPS://GitHub.Com/CodeEditorLand/LandMarkdownNotebook/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+HTTPS://github.com/CodeEditorLand/LandMarkdownNotebook.git"
-	},
-	"license": "SEE LICENSE IN LICENSE",
-	"author": {
-		"name": "🛬 Land —",
-		"email": "Land@PlayForm.Cloud",
-		"url": "HTTPS://Land.PlayForm.Cloud"
-	},
-	"type": "module",
 	"main": "./out/extension.js",
 	"browser": "./out/extension-bundle.js",
 	"scripts": {
@@ -50,14 +30,10 @@
 	],
 	"devDependencies": {
 		"@playform/build": "0.0.7",
-		"@playform/document": "0.0.6",
 		"@types/glob": "8.1.0",
 		"@types/node": "20.12.10",
 		"esbuild": "0.20.2",
 		"glob": "10.3.12"
-	},
-	"publishConfig": {
-		"access": "public"
 	},
 	"preview": true,
 	"capabilities": {
