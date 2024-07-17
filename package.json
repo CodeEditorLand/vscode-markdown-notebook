@@ -27,10 +27,10 @@
 		"onNotebook:markdown-notebook"
 	],
 	"devDependencies": {
-		"@types/glob": "^7.1.1",
-		"@types/node": "^13.11.0",
-		"esbuild": "^0.12.23",
-		"glob": "^7.1.6"
+		"@types/glob": "7.1.1",
+		"@types/node": "13.11.0",
+		"esbuild": "0.12.23",
+		"glob": "7.1.6"
 	},
 	"preview": true,
 	"capabilities": {
