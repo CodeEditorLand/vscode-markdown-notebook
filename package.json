@@ -25,10 +25,10 @@
 	},
 	"description": "An extension for editing markdown files in VS Code notebooks",
 	"devDependencies": {
-		"@types/glob": "7.1.1",
-		"@types/node": "13.11.0",
-		"esbuild": "0.12.23",
-		"glob": "7.1.6"
+		"@types/glob": "8.1.0",
+		"@types/node": "22.0.2",
+		"esbuild": "0.23.0",
+		"glob": "11.0.0"
 	},
 	"displayName": "Markdown Notebook",
 	"main": "./out/extension.js",
