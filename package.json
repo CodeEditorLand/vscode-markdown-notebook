@@ -26,7 +26,7 @@
 	"description": "An extension for editing markdown files in VS Code notebooks",
 	"devDependencies": {
 		"@types/glob": "8.1.0",
-		"@types/node": "22.8.4",
+		"@types/node": "22.8.6",
 		"esbuild": "0.24.0",
 		"glob": "11.0.0"
 	},
