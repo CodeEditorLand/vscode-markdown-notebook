@@ -1,13 +1,13 @@
 {
-	"name": "vscode-markdown-notebook",
-	"displayName": "Markdown Notebook",
-	"description": "An extension for editing markdown files in VS Code notebooks",
-	"main": "./out/extension.js",
+	"activationEvents": [
+		"onNotebook:markdown-notebook"
+	],
 	"browser": "./out/extension-bundle.js",
-	"scripts": {
-		"bundle": "npx esbuild src/extension.ts --bundle --outfile=out/extension-bundle.js --platform=node --external:vscode",
-		"compile": "tsc -p ./",
-		"deploy": "npx vsce publish --noVerify"
+	"capabilities": {
+		"untrustedWorkspaces": {
+			"supported": true
+		},
+		"virtualWorkspaces": true
 	},
 	"contributes": {
 		"notebooks": [
@@ -23,20 +23,20 @@
 			}
 		]
 	},
-	"activationEvents": [
-		"onNotebook:markdown-notebook"
-	],
+	"description": "An extension for editing markdown files in VS Code notebooks",
 	"devDependencies": {
 		"@types/glob": "8.1.0",
 		"@types/node": "22.9.1",
 		"esbuild": "0.24.0",
 		"glob": "11.0.0"
 	},
+	"displayName": "Markdown Notebook",
+	"main": "./out/extension.js",
+	"name": "vscode-markdown-notebook",
 	"preview": true,
-	"capabilities": {
-		"untrustedWorkspaces": {
-			"supported": true
-		},
-		"virtualWorkspaces": true
+	"scripts": {
+		"bundle": "npx esbuild src/extension.ts --bundle --outfile=out/extension-bundle.js --platform=node --external:vscode",
+		"compile": "tsc -p ./",
+		"deploy": "npx vsce publish --noVerify"
 	}
 }
