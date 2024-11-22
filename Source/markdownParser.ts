@@ -24,6 +24,7 @@ const LANG_IDS = new Map([
 	["py2", "python"],
 	["py3", "python"],
 ]);
+
 const LANG_ABBREVS = new Map(
 	Array.from(LANG_IDS.keys()).map((k) => [LANG_IDS.get(k), k]),
 );
@@ -39,6 +40,7 @@ interface ICodeBlockStart {
  */
 function parseCodeBlockStart(line: string): ICodeBlockStart | null {
 	const match = line.match(/(    |\t)?```(\S*)/);
+
 	return (
 		match && {
 			indentation: match[1],
@@ -57,16 +59,20 @@ function isCodeBlockEndLine(line: string): boolean {
 
 export function parseMarkdown(content: string): RawNotebookCell[] {
 	const lines = content.split(/\r?\n/g);
+
 	let cells: RawNotebookCell[] = [];
+
 	let i = 0;
 
 	// Each parse function starts with line i, leaves i on the line after the last line parsed
 	for (; i < lines.length; ) {
 		const leadingWhitespace = i === 0 ? parseWhitespaceLines(true) : "";
+
 		if (i >= lines.length) {
 			break;
 		}
 		const codeBlockMatch = parseCodeBlockStart(lines[i]);
+
 		if (codeBlockMatch) {
 			parseCodeBlock(leadingWhitespace, codeBlockMatch);
 		} else {
@@ -76,11 +82,14 @@ export function parseMarkdown(content: string): RawNotebookCell[] {
 
 	function parseWhitespaceLines(isFirst: boolean): string {
 		let start = i;
+
 		const nextNonWhitespaceLineOffset = lines
 			.slice(start)
 			.findIndex((l) => l !== "");
+
 		let end: number; // will be next line or overflow
 		let isLast = false;
+
 		if (nextNonWhitespaceLineOffset < 0) {
 			end = lines.length;
 			isLast = true;
@@ -89,7 +98,9 @@ export function parseMarkdown(content: string): RawNotebookCell[] {
 		}
 
 		i = end;
+
 		const numWhitespaceLines = end - start + (isFirst || isLast ? 0 : 1);
+
 		return "\n".repeat(numWhitespaceLines);
 	}
 
@@ -99,9 +110,12 @@ export function parseMarkdown(content: string): RawNotebookCell[] {
 	): void {
 		const language =
 			LANG_IDS.get(codeBlockStart.langId) || codeBlockStart.langId;
+
 		const startSourceIdx = ++i;
+
 		while (true) {
 			const currLine = lines[i];
+
 			if (i >= lines.length) {
 				break;
 			} else if (isCodeBlockEndLine(currLine)) {
@@ -118,6 +132,7 @@ export function parseMarkdown(content: string): RawNotebookCell[] {
 				line.replace(new RegExp("^" + codeBlockStart.indentation), ""),
 			)
 			.join("\n");
+
 		const trailingWhitespace = parseWhitespaceLines(false);
 		cells.push({
 			language,
@@ -131,12 +146,14 @@ export function parseMarkdown(content: string): RawNotebookCell[] {
 
 	function parseMarkdownParagraph(leadingWhitespace: string): void {
 		const startSourceIdx = i;
+
 		while (true) {
 			if (i >= lines.length) {
 				break;
 			}
 
 			const currLine = lines[i];
+
 			if (currLine === "" || isCodeBlockStart(currLine)) {
 				break;
 			}
@@ -145,6 +162,7 @@ export function parseMarkdown(content: string): RawNotebookCell[] {
 		}
 
 		const content = lines.slice(startSourceIdx, i).join("\n");
+
 		const trailingWhitespace = parseWhitespaceLines(false);
 		cells.push({
 			language: "markdown",
@@ -162,21 +180,27 @@ export function writeCellsToMarkdown(
 	cells: ReadonlyArray<vscode.NotebookCellData>,
 ): string {
 	let result = "";
+
 	for (let i = 0; i < cells.length; i++) {
 		const cell = cells[i];
+
 		if (i === 0) {
 			result += cell.metadata?.leadingWhitespace ?? "";
 		}
 
 		if (cell.kind === vscode.NotebookCellKind.Code) {
 			const indentation = cell.metadata?.indentation || "";
+
 			const languageAbbrev =
 				LANG_ABBREVS.get(cell.languageId) ?? cell.languageId;
+
 			const codePrefix = indentation + "```" + languageAbbrev + "\n";
+
 			const contents = cell.value
 				.split(/\r?\n/g)
 				.map((line) => indentation + line)
 				.join("\n");
+
 			const codeSuffix = "\n" + indentation + "```";
 
 			result += codePrefix + contents + codeSuffix;
@@ -194,6 +218,7 @@ function getBetweenCellsWhitespace(
 	idx: number,
 ): string {
 	const thisCell = cells[idx];
+
 	const nextCell = cells[idx + 1];
 
 	if (!nextCell) {
@@ -201,6 +226,7 @@ function getBetweenCellsWhitespace(
 	}
 
 	const trailing = thisCell.metadata?.trailingWhitespace;
+
 	const leading = nextCell.metadata?.leadingWhitespace;
 
 	if (typeof trailing === "string" && typeof leading === "string") {
@@ -209,6 +235,7 @@ function getBetweenCellsWhitespace(
 
 	// One of the cells is new
 	const combined = (trailing ?? "") + (leading ?? "");
+
 	if (!combined || combined === "\n") {
 		return "\n\n";
 	}

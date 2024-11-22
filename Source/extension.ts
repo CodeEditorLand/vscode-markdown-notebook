@@ -49,6 +49,7 @@ class MarkdownProvider implements vscode.NotebookSerializer {
 		const content = this.decoder.decode(data);
 
 		const cellRawData = parseMarkdown(content);
+
 		const cells = cellRawData.map(rawToNotebookCellData);
 
 		return {
@@ -61,6 +62,7 @@ class MarkdownProvider implements vscode.NotebookSerializer {
 		_token: vscode.CancellationToken,
 	): Uint8Array | Thenable<Uint8Array> {
 		const stringOutput = writeCellsToMarkdown(data.cells);
+
 		return this.encoder.encode(stringOutput);
 	}
 }
