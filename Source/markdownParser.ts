@@ -7,10 +7,15 @@ import * as vscode from "vscode";
 
 export interface RawNotebookCell {
 	indentation?: string;
+
 	leadingWhitespace: string;
+
 	trailingWhitespace: string;
+
 	language: string;
+
 	content: string;
+
 	kind: vscode.NotebookCellKind;
 }
 
@@ -31,6 +36,7 @@ const LANG_ABBREVS = new Map(
 
 interface ICodeBlockStart {
 	langId: string;
+
 	indentation: string;
 }
 
@@ -71,6 +77,7 @@ export function parseMarkdown(content: string): RawNotebookCell[] {
 		if (i >= lines.length) {
 			break;
 		}
+
 		const codeBlockMatch = parseCodeBlockStart(lines[i]);
 
 		if (codeBlockMatch) {
@@ -92,6 +99,7 @@ export function parseMarkdown(content: string): RawNotebookCell[] {
 
 		if (nextNonWhitespaceLineOffset < 0) {
 			end = lines.length;
+
 			isLast = true;
 		} else {
 			end = start + nextNonWhitespaceLineOffset;
@@ -134,6 +142,7 @@ export function parseMarkdown(content: string): RawNotebookCell[] {
 			.join("\n");
 
 		const trailingWhitespace = parseWhitespaceLines(false);
+
 		cells.push({
 			language,
 			content,
@@ -164,6 +173,7 @@ export function parseMarkdown(content: string): RawNotebookCell[] {
 		const content = lines.slice(startSourceIdx, i).join("\n");
 
 		const trailingWhitespace = parseWhitespaceLines(false);
+
 		cells.push({
 			language: "markdown",
 			content,
@@ -210,6 +220,7 @@ export function writeCellsToMarkdown(
 
 		result += getBetweenCellsWhitespace(cells, i);
 	}
+
 	return result;
 }
 

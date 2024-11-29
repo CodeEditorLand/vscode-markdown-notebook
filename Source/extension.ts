@@ -40,6 +40,7 @@ declare class TextEncoder {
 
 class MarkdownProvider implements vscode.NotebookSerializer {
 	private readonly decoder = new TextDecoder();
+
 	private readonly encoder = new TextEncoder();
 
 	deserializeNotebook(
