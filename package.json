@@ -23,6 +23,7 @@
 			}
 		]
 	},
+	"dependencies": {},
 	"description": "An extension for editing markdown files in VS Code notebooks",
 	"devDependencies": {
 		"@types/glob": "8.1.0",
@@ -32,7 +33,7 @@
 	},
 	"displayName": "Markdown Notebook",
 	"main": "./out/extension.js",
-	"name": "vscode-markdown-notebook",
+	"name": "@codeeditorland/markdown-notebook",
 	"preview": true,
 	"scripts": {
 		"bundle": "npx esbuild src/extension.ts --bundle --outfile=out/extension-bundle.js --platform=node --external:vscode",
